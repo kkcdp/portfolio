@@ -27,11 +27,15 @@
             <div class="card card-primary">
               <div class="card-header"><h4>Login</h4></div>
 
-              <!-- Email Address -->
-              <div class="card-body">
 
+              <div class="card-body">
+                    @if (session('status'))
+                        <p class="text-success">{{(session('status'))}}</p>
+                    @endif
                 <form method="POST" action="{{ route('login') }}" class="needs-validation" novalidate="">
                     @csrf
+
+                    <!-- Email Address -->
                   <div class="form-group">
                     <label for="email">Email</label>
                     <input id="email" type="email" class="form-control" name="email" value="{{old('email')}}"
