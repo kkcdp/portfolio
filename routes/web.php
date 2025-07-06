@@ -1,11 +1,24 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\HeroController;
 use App\Http\Controllers\Admin\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('frontend.home');
+});
+
+Route::get('/blog', function () {
+    return view('frontend.blog');
+});
+
+Route::get('/blog-details', function () {
+    return view('frontend.blog-details');
+});
+
+Route::get('/portfolio-details', function () {
+    return view('frontend.portfolio-details');
 });
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
@@ -19,3 +32,14 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], function(){
+    Route::resource('hero', HeroController::class);
+});
+
+// Route::name('admin.')->group(function () {
+//         // Route assigned name "admin.users"...
+
+// Route::resource('hero', HeroController::class);
+
+// });
