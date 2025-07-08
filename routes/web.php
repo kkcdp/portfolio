@@ -37,9 +37,3 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::resource('hero', HeroController::class);
 });
 
-// Route::name('admin.')->group(function () {
-//         // Route assigned name "admin.users"...
-
-// Route::resource('hero', HeroController::class);
-
-// });

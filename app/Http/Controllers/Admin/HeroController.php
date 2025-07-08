@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Hero;
 use Illuminate\Http\Request;
+use File;
 
 class HeroController extends Controller
 {
@@ -12,7 +14,9 @@ class HeroController extends Controller
      */
     public function index()
     {
-        return view('admin.hero.index');
+        $hero = Hero::first();
+
+        return view('admin.hero.index', compact('hero')); //compact - pass our variable hero to blade file
     }
 
     /**
@@ -52,7 +56,37 @@ class HeroController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'title' => ['required', 'max:200'],
+            'sub_title' => ['required', 'max:500'],
+            'image' => ['max:3000', 'image'],
+        ]);
+
+        if($request->hasFile('image')){
+            $hero = Hero::first();
+            if($hero && File::exists(public_path($hero->image))){//deleting our previous image
+                File::delete(public_path($hero->image));
+            }
+
+            $image = $request->file('image');
+            $imageName = rand().$image->getClientOriginalName();
+            $image->move(public_path('/uploads'), $imageName);
+            $imagePath = "/uploads/".$imageName;
+
+        }
+
+        Hero::updateOrCreate(
+            ['id' => $id],
+            [
+                'title' => $request->title,
+                'sub_title' => $request->sub_title,
+                'btn_text' => $request->btn_text,
+                'btn_url' => $request->btn_url,
+                'image' => isset($imagePath) ? $imagePath : '',
+            ]
+        );
+            toastr()->success('Updated successfully',[], 'Congrats');
+            return redirect()->back();
     }
 
     /**
