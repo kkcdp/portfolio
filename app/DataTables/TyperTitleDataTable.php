@@ -22,7 +22,10 @@ class TyperTitleDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'typertitle.action')
+            ->addColumn('action', function($query){
+                return '<a href="'.route('admin.typer-title.edit', $query->id).'" class="btn btn-primary">edit</a>
+                <a href="'.route('admin.typer-title.destroy', $query->id).'" class="btn btn-danger delete-item">delete</a>';
+            })
             ->setRowId('id');
     }
 
@@ -45,15 +48,15 @@ class TyperTitleDataTable extends DataTable
                     ->setTableId('typertitle-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
-                    ->orderBy(1)
+                    ->orderBy(0)
                     ->selectStyleSingle()
                     ->buttons([
-                        Button::make('excel'),
-                        Button::make('csv'),
-                        Button::make('pdf'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
+                        // Button::make('excel'),
+                        // Button::make('csv'),
+                        // Button::make('pdf'),
+                        // Button::make('print'),
+                        // Button::make('reset'),
+                        // Button::make('reload')
                     ]);
     }
 
@@ -63,15 +66,13 @@ class TyperTitleDataTable extends DataTable
     public function getColumns(): array
     {
         return [
+            Column::make('id')->width(20),
+            Column::make('title'),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
-                  ->width(60)
+                  ->width(160)
                   ->addClass('text-center'),
-            Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
         ];
     }
 
