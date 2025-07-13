@@ -19,11 +19,11 @@
   <link rel="stylesheet" href="{{asset('assets/css/plugins/select2.min.css')}}">
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
   <!-- Template CSS -->
   <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
   <link rel="stylesheet" href="{{asset('assets/css/components.css')}}">
-
-  @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body>
@@ -54,7 +54,8 @@
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
+  {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script> --}}
+  <script src="https://cdn.jsdelivr.net/npm/jquery.nicescroll@3.7.6/jquery.nicescroll.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
   <script src="{{asset('assets/js/stisla.js')}}"></script>
 
@@ -80,7 +81,6 @@
   <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
   <!-- CDN for SWEETALERT2 File -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 
   <!-- Show dynamic validation errors -->
   <script>
@@ -115,14 +115,17 @@
                 }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        type: 'DELETE',
                         url: deleteUrl,
+                        type: "DELETE",
+                        // data: {
+                        //     _token: {{csrf_token()}}
+                        // },
                         success: function(data){
                             Swal.fire({
                             title: "Deleted!",
                             text: "Your file has been deleted.",
                             icon: "success"
-                            });
+                        })
                             window.location.reload();
                         },
 
@@ -130,14 +133,11 @@
                             console.log(error);
                         }
                     })
-        }
-});
+                }
+            })
         })
     })
   </script>
-
-
-
 
     @stack('scripts')
 

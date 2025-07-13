@@ -1,4 +1,4 @@
-<header class="header-area parallax-bg" id="home-page" style="background: url('{{asset($hero->image)}}')">
+<header class="header-area parallax-bg" id="home-page" style="background: url('{{asset($hero->image)}}') no-repeat scroll top center/cover">
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-8">
@@ -18,3 +18,18 @@
 				</div>
 			</div>
 </header>
+
+@push('scripts')
+    <script>
+
+        @php
+            $titles =[];
+            foreach($typerTitles as $item){
+                $titles[] = $item->title;
+            }
+            // dd($titles);
+            $titles = JSON_encode($titles); //php array to js array
+        @endphp
+        $('.header-area .typer-title').typer({!! $titles !!});
+    </script>
+@endpush
