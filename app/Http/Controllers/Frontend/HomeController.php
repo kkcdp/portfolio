@@ -6,6 +6,7 @@ use App\Models\Hero;
 use App\Models\TyperTitle;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Service;
 
 class HomeController extends Controller
 {
@@ -13,6 +14,7 @@ class HomeController extends Controller
     {
         $hero = Hero::first();
         $typerTitles = TyperTitle::all();
-        return view('frontend.home', compact('hero', 'typerTitles'));
+        $services = Service::all();
+        return view('frontend.home', compact('hero', 'typerTitles', 'services'));
     }
 }
