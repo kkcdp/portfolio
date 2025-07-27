@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\About;
 use Illuminate\Http\Request;
 
 class AboutController extends Controller
@@ -12,7 +13,8 @@ class AboutController extends Controller
      */
     public function index()
     {
-        return view('admin.about.index');
+        $about = About::first();
+        return view('admin.about.index', compact('about')); //compact - pass this "about" variable to frontend
     }
 
     /**
@@ -52,7 +54,41 @@ class AboutController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+
+        $request->validate([
+            'title' => ['required', 'max:200'],
+            'description' => ['required', 'max:5000'],
+            'image' => ['image', 'max:5000'],
+            'resume' => ['mimes:pdf,csv,txt', 'max:10000'],
+
+        ]);
+
+        $about = About::first();
+        $imagePath = handleUpload('image', $about);
+        $resumePath = handleUpload('resume', $about);
+
+        About::updateOrCreate(
+            ['id' => $id],
+            [
+                'title' => $request->title,
+                'description' => $request->description,
+                'image' => (!empty($imagePath) ? $imagePath : $about->image), // $about->image is old path
+                'resume' => (!empty($resumePath) ? $resumePath : $about->resume),
+
+            ]
+        );
+
+        toastr()->success('Updated successfully',[], 'Congrats');
+
+        return redirect()->back();
+
+
+    }
+
+    public function resumeDownload()
+    {
+        $about = About::first();
+        return response()->download(public_path($about->resume));
     }
 
     /**

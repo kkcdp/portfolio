@@ -63,6 +63,7 @@ class HeroController extends Controller
         ]);
 
         $hero = Hero::first();
+
         if($request->hasFile('image')){
 
             if($hero && File::exists(public_path($hero->image))){//deleting our previous image
