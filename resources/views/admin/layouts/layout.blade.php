@@ -96,7 +96,7 @@
 
   <script>
     $(document).ready(function(){
-        //csrf token issue
+        //Csrf token
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -118,8 +118,9 @@
                 }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
+                        type: 'DELETE',
                         url: deleteUrl,
-                        type: "DELETE",
+
                         // data: {
                         //     _token: {{csrf_token()}}
                         // },
