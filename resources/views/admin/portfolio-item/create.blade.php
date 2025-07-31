@@ -6,7 +6,7 @@
             <div class="section-header-back">
                 <a href="features-posts.html" class="btn btn-icon"><i class="fas fa-arrow-left"></i></a>
             </div>
-            <h1>About section</h1>
+            <h1>Portfolio Item</h1>
         </div>
 
         <div class="section-body">
@@ -19,10 +19,8 @@
                         </div>
                         <div class="card-body">
 
-                            <form action="" method="POST"
-                                enctype="multipart/form-data">
+                            <form action="{{route('admin.portfolio-item.store')}}" method="POST" enctype="multipart/form-data">
                                 @csrf
-                                @method('PUT')
 
                                 <div class="form-group row mb-4">
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Image</label>
@@ -37,21 +35,21 @@
                                 <div class="form-group row mb-4">
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Title</label>
                                     <div class="col-sm-12 col-md-7">
-                                        <input type="text" name="title" class="form-control"
-                                            value="">
+                                        <input type="text" name="title" class="form-control" value="">
                                     </div>
                                 </div>
 
                                 <div class="form-group row mb-4">
-                      <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Category</label>
-                      <div class="col-sm-12 col-md-7">
-                        <select class="form-control selectric">
-                          <option>Tech</option>
-                          <option>News</option>
-                          <option>Political</option>
-                        </select>
-                      </div>
-                    </div>
+                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Category</label>
+                                    <div class="col-sm-12 col-md-7">
+                                        <select class="form-control selectric" name="category_id">
+                                            <option>Select</option>
+                                            @foreach ($categories as $category)
+                                                <option value="{{$category->id}}">{{$category->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
 
                                 <div class="form-group row mb-4">
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Description</label>
@@ -63,16 +61,14 @@
                                 <div class="form-group row mb-4">
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Client</label>
                                     <div class="col-sm-12 col-md-7">
-                                        <input type="text" name="title" class="form-control"
-                                            value="">
+                                        <input type="text" name="client" class="form-control" value="">
                                     </div>
                                 </div>
 
                                 <div class="form-group row mb-4">
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Website</label>
                                     <div class="col-sm-12 col-md-7">
-                                        <input type="text" name="title" class="form-control"
-                                            value="">
+                                        <input type="text" name="website" class="form-control" value="">
                                     </div>
                                 </div>
 
@@ -81,7 +77,7 @@
                                 <div class="form-group row mb-4">
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
                                     <div class="col-sm-12 col-md-7">
-                                        <button class="btn btn-primary">Update</button>
+                                        <button class="btn btn-primary">Create</button>
                                     </div>
                                 </div>
 
