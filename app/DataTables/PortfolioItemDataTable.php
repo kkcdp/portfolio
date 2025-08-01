@@ -22,7 +22,20 @@ class PortfolioItemDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'portfolioitem.action')
+            ->addColumn('image', function($query){
+                return '<img style="width:70px" src="'. asset($query->image).'"></img>';
+            })
+            ->addColumn('created_at', function($query){
+                return date('Y-m-d', strtotime($query->created_at));
+            })
+            ->addColumn('category', function($query){
+                return $query->category->name;
+            })
+            ->addColumn('action', function($query){
+                return '<a href="'.route('admin.portfolio-item.edit', $query->id).'" class="btn btn-primary"><i class="fas fa-edit"></i></a>
+                <a href="'.route('admin.portfolio-item.destroy', $query->id).'" class="btn btn-danger delete-item"><i class="fas fa-trash"></i></a>';
+            })
+            ->rawColumns(['image', 'action']) // for correct showing image (or btns) in table, not just print as text
             ->setRowId('id');
     }
 
@@ -45,15 +58,15 @@ class PortfolioItemDataTable extends DataTable
                     ->setTableId('portfolioitem-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
-                    ->orderBy(1)
+                    ->orderBy(0)
                     ->selectStyleSingle()
                     ->buttons([
-                        Button::make('excel'),
-                        Button::make('csv'),
-                        Button::make('pdf'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
+                        // Button::make('excel'),
+                        // Button::make('csv'),
+                        // Button::make('pdf'),
+                        // Button::make('print'),
+                        // Button::make('reset'),
+                        // Button::make('reload')
                     ]);
     }
 
@@ -63,15 +76,17 @@ class PortfolioItemDataTable extends DataTable
     public function getColumns(): array
     {
         return [
+            Column::make('id')->width(20),
+            Column::make('image')->width(100),
+            Column::make('title'),
+            Column::make('category'),
+            Column::make('created_at'),
+   
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
-                  ->width(60)
+                  ->width(160)
                   ->addClass('text-center'),
-            Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
         ];
     }
 
