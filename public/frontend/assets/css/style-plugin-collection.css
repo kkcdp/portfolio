@@ -3538,7 +3538,7 @@
     opacity: 1
 }
 
-/* .lity-container {
+.lity-container {
     z-index: 9992;
     position: relative;
     text-align: left;
@@ -3548,7 +3548,7 @@
     max-width: 100%;
     max-height: 100%;
     outline: none !important
-} */
+}
 
 .lity-content {
     z-index: 9993;
