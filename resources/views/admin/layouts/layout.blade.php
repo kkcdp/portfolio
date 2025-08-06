@@ -125,12 +125,21 @@
                         //     _token: {{csrf_token()}}
                         // },
                         success: function(data){
-                            Swal.fire({
-                            title: "Deleted!",
-                            text: "Your file has been deleted.",
-                            icon: "success"
-                        })
-                            window.location.reload();
+                            if(data.status == 'error'){
+                              Swal.fire({
+                              title: "Can not delete!",
+                              text: "This category contain items can't  be deleted!",
+                              icon: "error"
+                            })
+                          } else {
+                                Swal.fire({
+                                title: "Deleted!",
+                                text: "Your file has been deleted.",
+                                icon: "success"
+                              })
+                              
+                            }  
+                               window.location.reload();                       
                         },
 
                         error: function(xhr, status, error){

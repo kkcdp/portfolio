@@ -6,6 +6,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\DataTables\CategoryDataTable;
+use App\Models\PortfolioItem;
 
 class CategoryController extends Controller
 {
@@ -85,6 +86,11 @@ class CategoryController extends Controller
     public function destroy(string $id)
     {
         $category = Category::findOrFail($id);
-        $category->delete();
+        $hasItem = PortfolioItem::where('category_id', $category->id)->count();
+        if($hasItem == 0){
+            $category->delete();
+            return true;
+        }
+            return response(['status' => 'error']);
     }
 }
