@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('skill_section_settings', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            $table->text('sub_title');
+            $table->text('image')->nullable();
             $table->timestamps();
         });
     }
