@@ -48,7 +48,7 @@ class SkillItemDataTable extends DataTable
                     ->setTableId('skillitem-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
-                    ->orderBy(1)
+                    ->orderBy(0)  // zero means first column, 1= second e.t.c
                     ->selectStyleSingle()
                     ->buttons([
                         // Button::make('excel'),
