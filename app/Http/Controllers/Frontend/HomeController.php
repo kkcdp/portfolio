@@ -10,6 +10,8 @@ use App\Models\TyperTitle;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Experience;
+use App\Models\Feedback;
+use App\Models\FeedbackSectionSetting;
 use App\Models\PortfolioItem;
 use App\Models\PortfolioSectionSetting;
 use App\Models\SkillItem;
@@ -29,6 +31,8 @@ class HomeController extends Controller
         $skill = SkillSectionSetting::first();
         $skillItems = SkillItem::all();
         $experience = Experience::first();
+        $feedbacks = Feedback::all();
+        $feedbackTitle = FeedbackSectionSetting::first();
         return view('frontend.home', compact(
             'hero', 
             'typerTitles', 
@@ -39,7 +43,9 @@ class HomeController extends Controller
             'portfolioItems',
             'skill',
             'skillItems',
-            'experience'
+            'experience',
+            'feedbacks',
+            'feedbackTitle'
         ));
     }
 
