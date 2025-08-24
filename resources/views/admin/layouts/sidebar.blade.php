@@ -93,7 +93,7 @@
                   <span>Blog</span></a>
                 <ul class="dropdown-menu" style="display: none;">
                   <li><a class="nav-link" href="{{route('admin.blog-category.index')}}">Category</a></li>     
-                  <li><a class="nav-link" href="{{route('admin.feedback-section-setting.index')}}">Section Setting</a></li>                
+                  <li><a class="nav-link" href="{{route('admin.blog.index')}}">Blog List</a></li>                
                 </ul>
               </li>
               
