@@ -24,6 +24,22 @@
                                 @method('PUT')
 
                                 <div class="form-group row mb-4">
+                                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Logo</label>
+                                    <div class="col-sm-12 col-md-7 row">
+                                        
+                                        <div class="image-preview" style="display: flex; align-items: center;">
+                                            <img src="{{asset($setting->logo)}}" alt="">
+                                            <label >OLD File</label>   
+                                        </div>
+                                        <div id="image-preview" class="image-preview">
+                                            <label for="image-upload" id="image-label">Choose File</label>   
+                                            <input type="file" name="logo" id="image-upload">
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+
+                                {{-- <div class="form-group row mb-4">
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Logo Preview</label>
                                     <div class="col-sm-12 col-md-7">
                                             <img style="width:150px" src="{{asset($setting->logo)}}" alt="">
@@ -38,7 +54,7 @@
                                             <label class="custom-file-label" for="customFile">Choose file</label>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 <div class="form-group row mb-4">
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Footer Logo Preview</label>
@@ -50,9 +66,10 @@
                                 <div class="form-group row mb-4">
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Footer Logo</label>
                                     <div class="col-sm-12 col-md-7">
-                                        <div class="custom-file">
-                                            <input type="file" name="footer_logo" class="custom-file-input" id="customFile">
+                                        <div class="custom-file" >
                                             <label class="custom-file-label" for="customFile">Choose file</label>
+                                            <input type="file" name="footer_logo" class="custom-file-input" id="customFile">
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -89,3 +106,4 @@
         </div>
     </section>
 @endsection
+

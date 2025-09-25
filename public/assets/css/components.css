@@ -652,6 +652,7 @@ tr:first-child > td > .fc-day-grid-event {
   position: absolute;
   opacity: 0;
   z-index: 10;
+  
 }
 
 .image-preview label, #callback-preview label {

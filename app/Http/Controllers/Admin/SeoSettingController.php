@@ -3,18 +3,18 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\GeneralSetting;
+use App\Models\SeoSetting;
 use Illuminate\Http\Request;
 
-class GeneralSettingController extends Controller
+class SeoSettingController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $setting = GeneralSetting::first();
-        return view('admin.setting.general-setting.index', compact('setting'));
+        $seo = SeoSetting::first();
+        return view('admin.setting.seo-setting.index', compact('seo'));
     }
 
     /**
@@ -55,26 +55,21 @@ class GeneralSettingController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'logo' =>['max:5000', 'image'],
-            'footer_logo' =>['max:5000', 'image'],
-            'favicon' =>['max:5000', 'image'],
+            'title' => ['required', 'max:200'],
+            'description' => ['required', 'max:500'],
+            'keywords' => ['required', 'max:300'],
         ]);
 
-        $setting = GeneralSetting::first();
-        
-        $logo = handleUpload('logo', $setting);
-        $footer_logo = handleUpload('footer_logo', $setting);
-        $favicon = handleUpload('favicon', $setting);
-
-        $generalSetting = $setting;
-        $generalSetting->logo = (!empty($logo)) ? $logo : $setting->logo;
-        $generalSetting->footer_logo = (!empty($footer_logo)) ? $footer_logo : $setting->footer_logo;
-        $generalSetting->favicon = (!empty($favicon)) ? $favicon : $setting->favicon;
-        $generalSetting->save();
-
-        toastr('Update Successfully', 'success');
-        return redirect()->back();
-
+        SeoSetting::updateOrCreate(
+            ['id' => $id],
+            [
+                'title' => $request->title,
+                'description' => $request->description,
+                'keywords' => $request->keywords,
+            ]
+        );
+            toastr()->success('Updated successfully',[], 'Congrats');
+            return redirect()->back();
     }
 
     /**
