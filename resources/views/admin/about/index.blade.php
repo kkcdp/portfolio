@@ -48,7 +48,6 @@
                                         <textarea name="description" class="summernote">{!! $about->description !!}</textarea>
                                     </div>
                                 </div>
-
                                 @if ($about->resume)
                                     <div class="form-group row mb-4">
                                         <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
@@ -58,8 +57,19 @@
                                             </div>
                                         </div>
                                     </div>
-                                @endif
 
+                                 @endif
+
+                                    <div class="form-group row mb-4">
+                                        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Resume</label>
+                                        <div class="col-sm-12 col-md-7">
+                                            <div class="custom-file">
+                                                <input type="file" name="resume" class="custom-file-input" id="customFile">
+                                                <label for="customFile" class="custom-file-label">Choose file</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                               
                                 <div class="form-group row mb-4">
                                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
                                     <div class="col-sm-12 col-md-7">

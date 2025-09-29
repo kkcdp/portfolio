@@ -121,10 +121,7 @@
                     $.ajax({
                         type: 'DELETE',
                         url: deleteUrl,
-
-                        // data: {
-                        //     _token: {{csrf_token()}}
-                        // },
+                        data: {_token: "{{ csrf_token() }}"},
                         success: function(data){
                             if(data.status == 'error'){
                               Swal.fire({

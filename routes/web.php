@@ -24,15 +24,19 @@ use App\Http\Controllers\Admin\GeneralSettingController;
 use App\Http\Controllers\Admin\SkillItemController;
 use App\Http\Controllers\Admin\TyperTitleController;
 use App\Http\Controllers\Admin\PortfolioItemController;
-use App\Http\Controllers\Admin\PortfolioSectionSetting;
 use App\Http\Controllers\Admin\SkillSectionSettingController;
 use App\Http\Controllers\Admin\PortfolioSectionSettingController;
 use App\Http\Controllers\Admin\SeoSettingController;
 use App\Http\Controllers\Admin\SettingController;
 
+/**  Frontend Routes */
+
 Route::get('/', [HomeController::class, 'index'])->name('home');
-
-
+Route::get('portfolio-details/{id}', [HomeController::class, 'showPortfolio'])->name('show.portfolio');
+Route::get('blog-details/{id}', [HomeController::class, 'showBlog'])->name('show.blog');
+Route::get('blogs', [HomeController::class, 'blog'])->name('blog');
+Route::post('contact', [HomeController::class, 'contact'])->name('contact');
+Route::get('resume/download', [AboutController::class, 'resumeDownload'])->name('resume.download');
 
 Route::get('/blog', function () {
     return view('frontend.blog');
@@ -46,6 +50,9 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
 ->middleware(['auth', 'verified'])
 ->name('dashboard');
 
+
+/**  Admin Routes */
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -53,13 +60,6 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
-
-Route::get('portfolio-details/{id}', [HomeController::class, 'showPortfolio'])->name('show.portfolio');
-Route::get('blog-details/{id}', [HomeController::class, 'showBlog'])->name('show.blog');
-Route::get('blogs', [HomeController::class, 'blog'])->name('blog');
-Route::post('contact', [HomeController::class, 'contact'])->name('contact');
-
-/**  Admin Routes */
 
 Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], function(){
     Route::resource('hero', HeroController::class);
@@ -69,7 +69,6 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::resource('service', ServiceController::class);
 
     /** About route */
-    Route::get('resume/download', [AboutController::class, 'resumeDownload'])->name('resume.download');
     Route::resource('about', AboutController::class);
 
     /** Portfolio Category route */
